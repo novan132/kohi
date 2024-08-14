@@ -6,7 +6,7 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/testbed.exe",
-            "args": [].
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/bin/",
             "environment": [],
@@ -17,7 +17,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/testbed",
-            "args": [].
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/bin/",
             "environment": []

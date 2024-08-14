@@ -8,7 +8,7 @@ mkdir -p ../bin
 cFilenames=$(find . -type f -name "*.c")
 
 assembly="testbed"
-compilerFlags="-g -fdeclspec -fPIC"
+compilerFlags="-g -fdeclspec -fPIC -Werror -Wall"
 
 includeFlags="-Isrc -I../engine/src/"
 linkerFlags="-L../bin/ -lengine -Wl,-rpath,."
