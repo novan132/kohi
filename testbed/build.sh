@@ -11,7 +11,7 @@ assembly="testbed"
 compilerFlags="-g -fdeclspec -fPIC -Werror -Wall"
 
 includeFlags="-Isrc -I../engine/src/"
-linkerFlags="-L../bin/ -lengine -Wl,-rpath,."
+linkerFlags="-L../bin -lengine -Wl,-rpath,."
 defines="-D_DEBUG -DKIMPORT"
 
 echo "Building $assembly..."
