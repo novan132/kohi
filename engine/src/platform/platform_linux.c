@@ -47,6 +47,8 @@ KAPI b8 platform_startup(
 
     // Turn off key repeats.
     XAutoRepeatOff(state->display);
+    // TODO: temporary
+    XAutoRepeatOn(state->display);
 
     // Retrieve the connection from the display.
     state->connection = XGetXCBConnection(state->display);
