@@ -3,6 +3,7 @@
 #include "game_types.h"
 #include "logger.h"
 #include "platform/platform.h"
+#include "core/kmemory.h"
 
 typedef struct application_state {
     game *game_inst;
@@ -18,6 +19,8 @@ static b8 initialized = FALSE;
 static application_state app_state;
 
 b8 application_create(game *game_inst) {
+    KINFO(get_memory_usage_str());
+
     if (initialized) {
         KERROR("application_create called more than once.");
         return FALSE;
