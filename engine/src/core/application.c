@@ -5,6 +5,7 @@
 #include "platform/platform.h"
 #include "core/kmemory.h"
 #include "core/event.h"
+#include "core/input.h"
 
 typedef struct application_state {
     game *game_inst;
@@ -31,6 +32,7 @@ b8 application_create(game *game_inst) {
 
     // Initialize subsystems.
     initialize_logging();
+    input_initialize();
 
     // TODO: Remove this
     KFATAL("a test message: %f", 3.14f);
@@ -75,22 +77,32 @@ b8 application_run() {
             return FALSE;
         }
 
-        if (!app_state.game_inst->update(app_state.game_inst, (f32)0)) {
-            KFATAL("Game update failed, shutting down.");
-            app_state.is_running = FALSE;
-            break;
-        }
+        if (!app_state.is_suspended) {
+            if (!app_state.game_inst->update(app_state.game_inst, (f32)0)) {
+                KFATAL("Game update failed, shutting down.");
+                app_state.is_running = FALSE;
+                break;
+            }
 
-        if (!app_state.game_inst->render(app_state.game_inst, (f32)0)) {
-            KFATAL("Game render failed, shutting down.");
-            app_state.is_running = FALSE;
-            break;
+            if (!app_state.game_inst->render(app_state.game_inst, (f32)0)) {
+                KFATAL("Game render failed, shutting down.");
+                app_state.is_running = FALSE;
+                break;
+            }
+
+            // NOTE: Input update/state copying should always be handled
+            // after any input should be recorded; i.e before this line
+            // As a safety, input is the last thing to be updated before
+            // this frame ended.
+            input_update(0);
+
         }
     }
 
     app_state.is_running = FALSE; 
 
     event_shutdown();
+    input_shutdown();
 
     platform_shutdown(&app_state.platform);
 

@@ -20,7 +20,7 @@ typedef struct event_context {
         u8 u8[16];
 
         char c[16];
-    };
+    } data;
 } event_context;
 
 // Should return true if handled.
